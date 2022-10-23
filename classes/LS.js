@@ -23,4 +23,15 @@ class LS {
         task.addedToLS();
     }
 
+    // delete task from LS
+    deleteTask(task){
+        let tasks = this.getData("tasks");
+        tasks.forEach(function (tasksElement, tasksIndex){
+            if(tasksElement.name === task){
+                tasks.splice(tasksIndex, 1);
+            }
+        });
+        this.setData("tasks", tasks);
+    }
+
 }
