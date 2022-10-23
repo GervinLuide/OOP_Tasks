@@ -1,16 +1,25 @@
 class UI {
+    //help funktsion to add DOM element
+    addUIelement(elementname, classname= "", textcontent="", atributes={}){
+        const element = document.createElement(elementname);
+        element.className = classname;
+        element.appendChild(document.createTextNode(textcontent));
+        //if we want to use atributes, for example a atribute is href with value #
+        if(Object.keys(atributes).length > 0){
+            for(let key in atributes){
+                element.setAttribute(key, atributes[key]);
+            }
+        }
+        return element;
+    }
+
     addTask(task){
         //create list item
-        const li = document.createElement("li");
-        li.className = "collection-item";
-        li.appendChild(document.createTextNode(task.name))
+        const li = this.addUIelement("li", "collection-item", task.name)
         //create link
-        const link = document.createElement("a");
-        link.className = "secondary-content";
-        link.appendChild(document.createTextNode("X"));
-        link.setAttribute("href", "#");
-        // add link to list item
-        li.appendChild(link);
+        const link = this.addUIelement("a", "secondary-content", "X", {"href":"#"});
+        //add link to list item
+        li.appendChild(link)
         //find list to add created list item
         const list = document.querySelector("ul");
         list.appendChild(li);
@@ -32,5 +41,20 @@ class UI {
         while(tasks.firstChild){
             tasks.removeChild(tasks.firstChild);
         }
+    }
+
+    getTasks(tasks){
+        for(let i = 0; i < tasks.length; i++){
+            //create list item
+            const li = this.addUIelement("li", "collection-item", tasks[i].name)
+            //create link
+            const link = this.addUIelement("a", "secondary-content", "X", {"href": "X"});
+            //add link to list item
+            li.appendChild(link);
+            //find list to add created list item
+            const list = document.querySelector("ul");
+            list.appendChild(li);
+        }
+
     }
 }
